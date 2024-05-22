@@ -14,13 +14,13 @@ class _HomePageState extends State<HomePage>{
   Position? _localizacaoAtual;
   final _controller = TextEditingController();
 
-  String get _textoLocalizacao => _localizacaoAtual == null ? "" :
-      'Latitude: ${_localizacaoAtual!.latitude}  | Longitude: '
-                '${_localizacaoAtual!.longitude}';
+  String get _textoLocalizacao => _localizacaoAtual == null ? '' :
+  'Latitude: ${_localizacaoAtual!.latitude}  |  Longitude: ${_localizacaoAtual!.longitude}';
 
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         title: const Text('Usando Mapas'),
       ),
       body: _criarBody(),
@@ -30,27 +30,27 @@ class _HomePageState extends State<HomePage>{
   Widget _criarBody() => ListView(
     children: [
       Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: ElevatedButton(
           child: Text('Obter Localização Atual'),
           onPressed: _obterLocalizacaoAtual,
         ),
       ),
 
-      if(_localizacaoAtual == null)
-         Padding(
-            padding:  const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: Text(_textoLocalizacao),
-                    ),
-                      ElevatedButton(
-                        onPressed: _abrirCoordenadasNoMaPaExterno,
-                        child: const Icon(Icons.map)
-                    ),
-                  ],
-                ),
+      if(_localizacaoAtual != null)
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(_textoLocalizacao),
+              ),
+              ElevatedButton(
+                  onPressed: _abrirCoordenadasNoMaPaExterno,
+                  child: const Icon(Icons.map)
+              ),
+            ],
+          ),
         ),
       Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -97,7 +97,10 @@ class _HomePageState extends State<HomePage>{
       return;
     }
 
-    Position position = await Geolocator.getCurrentPosition();
+    _localizacaoAtual = await Geolocator.getCurrentPosition();
+    setState(() {
+
+    });
 
   }
 
