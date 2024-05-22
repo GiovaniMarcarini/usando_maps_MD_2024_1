@@ -45,9 +45,9 @@ class _HomePageState extends State<HomePage>{
                     Expanded(
                         child: Text(_textoLocalizacao),
                     ),
-                     const ElevatedButton(
-                        onPressed: null,
-                        child: Icon(Icons.map)
+                      ElevatedButton(
+                        onPressed: _abrirCoordenadasNoMaPaExterno,
+                        child: const Icon(Icons.map)
                     ),
                   ],
                 ),
@@ -76,6 +76,15 @@ class _HomePageState extends State<HomePage>{
     MapsLauncher.launchQuery(_controller.text);
   }
 
+  void _abrirCoordenadasNoMaPaExterno(){
+    if(_localizacaoAtual == null){
+      return;
+    }
+    MapsLauncher.launchCoordinates(
+        _localizacaoAtual!.latitude,
+        _localizacaoAtual!.longitude,
+    );
+  }
 
   void _obterLocalizacaoAtual() async {
     bool servicoHabilitado = await _servicoHabilitado();
