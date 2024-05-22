@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 
 class HomePage extends StatefulWidget{
 
@@ -35,8 +36,45 @@ class _HomePageState extends State<HomePage>{
           onPressed: _obterLocalizacaoAtual,
         ),
       ),
+
+      if(_localizacaoAtual == null)
+         Padding(
+            padding:  const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: Text(_textoLocalizacao),
+                    ),
+                     const ElevatedButton(
+                        onPressed: null,
+                        child: Icon(Icons.map)
+                    ),
+                  ],
+                ),
+        ),
+      Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: TextField(
+          controller: _controller,
+          decoration:  InputDecoration(
+            labelText: 'Endereço ou ponto de referência',
+            suffixIcon: IconButton(
+                onPressed: _abrirNoMapaExterno,
+                icon: const Icon(Icons.map),
+              tooltip: 'Abrir no Mapa',
+            ),
+          ),
+        ),
+      ),
     ],
   );
+
+  void _abrirNoMapaExterno(){
+    if(_controller.text.trim().isEmpty){
+      return;
+    }
+    MapsLauncher.launchQuery(_controller.text);
+  }
 
 
   void _obterLocalizacaoAtual() async {
