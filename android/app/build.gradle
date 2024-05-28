@@ -43,7 +43,7 @@ android {
     defaultConfig {
 
         applicationId "com.example.usando_maps_2024"
-        minSdkVersion 20
+        minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

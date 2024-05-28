@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Usando Mapas',
       theme: ThemeData(
 
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
       home: HomePage(),
