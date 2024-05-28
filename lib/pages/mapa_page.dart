@@ -1,5 +1,7 @@
 
 
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -16,6 +18,7 @@ class MapasPage extends StatefulWidget{
 }
 
 class _MapasPageState extends State<MapasPage>{
+  final _controller = Completer<GoogleMapController>();
 
   Widget build(BuildContext context){
     return Scaffold(
@@ -31,6 +34,14 @@ class _MapasPageState extends State<MapasPage>{
             )
           )
         },
+        initialCameraPosition: CameraPosition(
+          target: LatLng(widget.latitude, widget.longitude),
+          zoom: 15,
+        ),
+        onMapCreated: (GoogleMapController controller){
+          _controller.complete(controller);
+        },
+        myLocationEnabled: true,
       ),
     );
   }
